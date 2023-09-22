@@ -2,3 +2,4 @@
 *.pytest_cache
 *.ipynb_checkpoints
 *.tar.gz
+.env-nbr
