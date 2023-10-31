@@ -3,3 +3,4 @@
 *.ipynb_checkpoints
 *.tar.gz
 .env-nbr
+EPM/data/
