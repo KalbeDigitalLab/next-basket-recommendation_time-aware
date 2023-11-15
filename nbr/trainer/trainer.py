@@ -6,7 +6,9 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 import sys
-
+from nbr.common.constants import TIME_SCALAR
+import matplotlib.pyplot as plt
+from datetime import datetime, timezone
 
 class NBRTrainer:
     def __init__(self, corpus, max_epochs, topk, early_stop_num):
@@ -39,6 +41,9 @@ class NBRTrainer:
     def train(self, evaluation_flg=True):
         best_metric = 0.
         bad_epoch_num = 0
+        precisions = []
+        recalls = []
+        ndcgs = []
 
         for epoch in range(self.max_epochs):
             print(f"Epoch {epoch + 1}:")
@@ -50,7 +55,9 @@ class NBRTrainer:
                 print("Evaluation (dev):")
                 sys.stdout.flush()
                 metrics = self.evaluate(mode="dev")
-                print("\n", metrics)
+                precisions.append(metrics['precision'])
+                recalls.append(metrics['recall'])
+                ndcgs.append(metrics['ndcg'])
                 sys.stdout.flush()
 
                 if metrics["ndcg"] >= best_metric:
@@ -67,6 +74,16 @@ class NBRTrainer:
         
         with open("best_checkpoint.pth", "rb") as f:
             checkpoint = torch.load(f)
+
+        epochs = range(1, epoch + 2)
+        plt.plot(epochs, precisions, 'r', label='Precision Score')
+        plt.plot(epochs, recalls, 'g', label='Recall Score')
+        plt.plot(epochs, ndcgs, 'b', label='NDCG Score')
+        plt.xlabel('Epochs')
+        plt.ylabel('Score')
+        plt.legend()
+        plt.show()
+        
         self.model.load_state_dict(checkpoint)
         self.best_score = best_metric
         return self.model
@@ -191,7 +208,7 @@ class NBRTrainer:
             "ndcg": ndcgs
         }
     
-    def get_predictions(self, mode="dev"):
+    def get_predictions(self, mode="dev", timestamp=None):
         if mode == "dev":
             test_dataloader = self.dev_dataloader
         else:
@@ -200,11 +217,15 @@ class NBRTrainer:
         self.model.eval()
         
         predictions = np.zeros((self.corpus.n_users, self.corpus.n_items))
+        datas = {}
 
         progress_bar = tqdm(test_dataloader)
         for batch in progress_bar:
             proper_items = batch["proper_items"]
             batch = {k: v.to(self.device) for k, v in batch.items() if k != "proper_items"}
+
+            if timestamp is not None:
+                batch['t'] = torch.FloatTensor([datetime.strptime(timestamp, "%Y-%m-%d").replace(tzinfo=timezone.utc).timestamp() / TIME_SCALAR])
 
             items_scores = self.model.predict_for_user(
                 user_id=batch["user_id"][0],
@@ -214,5 +235,6 @@ class NBRTrainer:
             )
             items_scores = items_scores.cpu().detach().numpy()
             predictions[batch["user_id"][0].item()] = items_scores
+            datas[batch['user_id'][0].item()] = batch
         
-        return predictions
+        return predictions, datas
