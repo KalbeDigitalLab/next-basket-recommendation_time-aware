@@ -235,6 +235,6 @@ class NBRTrainer:
             )
             items_scores = items_scores.cpu().detach().numpy()
             predictions[batch["user_id"][0].item()] = items_scores
-            datas[batch['user_id'][0].item()] = batch
+            datas[batch['user_id'][0].item()] = {'user_id': batch['user_id'],'t': batch['t'],'length': batch['length']}
         
         return predictions, datas
