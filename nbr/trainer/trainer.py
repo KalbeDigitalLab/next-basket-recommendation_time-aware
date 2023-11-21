@@ -9,6 +9,7 @@ import sys
 from nbr.common.constants import TIME_SCALAR
 import matplotlib.pyplot as plt
 from datetime import datetime, timezone
+import wandb
 
 class NBRTrainer:
     def __init__(self, corpus, max_epochs, topk, early_stop_num):
@@ -58,6 +59,7 @@ class NBRTrainer:
                 precisions.append(metrics['precision'])
                 recalls.append(metrics['recall'])
                 ndcgs.append(metrics['ndcg'])
+                wandb.log(metrics)
                 sys.stdout.flush()
 
                 if metrics["ndcg"] >= best_metric:
