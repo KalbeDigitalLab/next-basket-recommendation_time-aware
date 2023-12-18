@@ -1,4 +1,7 @@
-# Repository structure
+# Next Basket Recommendation with Time-Aware Item Weighting
+
+add description here
+
 ```bash
 .
 ├── nbr // NBR library
@@ -25,3 +28,5 @@
     ├── testing_tifuknntd.ipynb // notebook with testing TIFUKNN-TA model
     └── testing_upcf.ipynb // notebook with testing UPCF model
 ```
+
+This repository modified based on [TAIW](https://github.com/alexeyromanov-hse/time_aware_item_weighting) (Romanov, A., Lashinin, O., Ananyeva, M. and Kolesnikov, S., 2023, September. Time-Aware Item Weighting for the Next Basket Recommendations. In Proceedings of the 17th ACM Conference on Recommender Systems (pp. 985-992).) [[pdf]](https://arxiv.org/pdf/2307.16297.pdf).)
