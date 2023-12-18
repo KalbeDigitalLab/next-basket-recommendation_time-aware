@@ -5,3 +5,7 @@
 .env-nbr
 EPM/data/
 EMOS/data/
+Tafeng/data/
+EPM/wandb/
+EMOS/wandb/
+Tafeng/wandb/
