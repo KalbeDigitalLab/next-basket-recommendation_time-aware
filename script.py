@@ -1,11 +1,13 @@
 import wandb
 import os
 
-os.environ["WANDB_API_KEY"] = 'bd2d8ebdbf431147c9f5bf955a14b9f4e53642f3'
+# TODO: Set for reporting
+os.environ["WANDB_API_KEY"] = ''
 
 wandb.login()
 wandb.init(project='nbr-emos', id='period-8w')
 
+# TODO: Set for period configuration
 periode = "3600 * 24 * 7 * 8"
 
 lst = []
@@ -21,11 +23,10 @@ import sys
 sys.path.append("..")
 from nbr.preparation import Preprocess, save_split, Corpus
 from nbr.trainer import NBRTrainer
-from nbr.model import BPR, SLRC, NBRKNN, RepurchaseModule
+from nbr.model import RepurchaseModule
 import torch
 import random
 import numpy as np
-import optuna
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -34,6 +35,7 @@ torch.manual_seed(seed)
 random.seed(seed)
 np.random.seed(seed)
 
+# TODO: Set for dataset source and preprocessing configuration
 filter = True
 min_user = 5
 min_item = 10
@@ -48,6 +50,7 @@ save_split(corpus_path, dataset_name, preprocessor)
 corpus = Corpus(corpus_path, dataset_name)
 corpus.load_data()
 
+# TODO: Set for hyperparameter configuration
 trainer = NBRTrainer(
     corpus=corpus,
     max_epochs=50,
