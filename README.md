@@ -52,7 +52,7 @@ This repository modified based on [TAIW](https://github.com/alexeyromanov-hse/ti
 pip install -r requirements.txt
 ```
 
-### Data (only for Local Running)
+### Dataset (only for Local)
 
 Download [dataset](https://univindonesia-my.sharepoint.com/:f:/g/personal/fadli_aulawi_office_ui_ac_id/Erc9RLcXriNPmTmj8u9FxhcBMpDX5blLuqKsWFPLblu0xA?e=Tvjn9K) that you want to use (EMOS, EPM, or Tafeng). Extract it in its respective directory so the structure will be look like this: (example for EMOS)
 
@@ -67,7 +67,14 @@ Download [dataset](https://univindonesia-my.sharepoint.com/:f:/g/personal/fadli_
 └── └── TAIWI-emos.ipynb 
 ```
 
-## Program 
+## Installation
+
+```bash
+# install requirements
+pip install -r requirements.txt
+```
+
+## Usage 
 
 ### Cloud (Kaggle)
 
