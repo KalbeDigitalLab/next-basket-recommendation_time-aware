@@ -2,6 +2,8 @@
 
 This repository modified based on [TAIW](https://github.com/alexeyromanov-hse/time_aware_item_weighting) (Romanov, A., Lashinin, O., Ananyeva, M. and Kolesnikov, S., 2023, September. Time-Aware Item Weighting for the Next Basket Recommendations. In Proceedings of the 17th ACM Conference on Recommender Systems (pp. 985-992).) [[pdf]](https://arxiv.org/pdf/2307.16297.pdf).)
 
+![image](img/architecture.jpg)
+
 ## Project Structure
 
 ```
@@ -10,7 +12,8 @@ This repository modified based on [TAIW](https://github.com/alexeyromanov-hse/ti
 │   ├── best_checkpoint-emos-*.pth // best pre-trained model from each period scenario
 │   ├── best_checkpoint.pth // overall best pre-trained model
 │   ├── Prep-emos.ipynb // notebook for preprocessing
-│   └── TAIWI-emos.ipynb // notebook for doing training and inference
+│   ├── TAIWI-emos.ipynb // notebook for doing training and inference
+│   └── TAIWI-emos-emb.ipynb // notebook for doing training and inference (with embedding scenario)
 ├── EPM // folder with experiments on EPM dataset
 │   ├── best_checkpoint-epm-*.pth // best pre-trained model for each period scenario
 │   ├── best_checkpoint.pth // overall best pre-trained model
@@ -49,7 +52,7 @@ This repository modified based on [TAIW](https://github.com/alexeyromanov-hse/ti
 pip install -r requirements.txt
 ```
 
-### Data
+### Data (only for Local Running)
 
 Download [dataset](https://univindonesia-my.sharepoint.com/:f:/g/personal/fadli_aulawi_office_ui_ac_id/Erc9RLcXriNPmTmj8u9FxhcBMpDX5blLuqKsWFPLblu0xA?e=Tvjn9K) that you want to use (EMOS, EPM, or Tafeng). Extract it in its respective directory so the structure will be look like this: (example for EMOS)
 
@@ -65,6 +68,12 @@ Download [dataset](https://univindonesia-my.sharepoint.com/:f:/g/personal/fadli_
 ```
 
 ## Program 
+
+### Cloud (Kaggle)
+
+In regard to the execution of our main and latest code, `TAIW-emos-emb.ipynb`, it is advisable to leverage cloud-based computing resources due to the program's substantial memory requirements. Furthermore, the embedding data is only accessible through Kaggle Datasets. By utilizing Kaggle Notebooks, the data can be directly incorporated into the analysis, streamlining the workflow.
+
+### Local
 
 Preprocessing code can be found on `Prep-*.ipynb` (for EMOS and EPM). But it is optional because the preprocessed data already available in the downloaded dataset before. 
 
